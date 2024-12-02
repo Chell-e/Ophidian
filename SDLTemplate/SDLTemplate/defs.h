@@ -1,14 +1,14 @@
 #pragma once
 
 #define STRNCPY(dest, src, n) strncpy(dest, src, n); dest[n - 1] = '\0'
-#define WINDOW_NAME				"BASPRG3 SDL TEMPLATE"
+#define WINDOW_NAME				"OPHIDIAN"
 #define FPS                      60
 #define MAX_KEYBOARD_KEYS        350
 #define MAX_NAME_LENGTH          32
 #define MAX_LINE_LENGTH          1024
 
-#define SCREEN_WIDTH             1280
-#define SCREEN_HEIGHT            720
+#define SCREEN_WIDTH             900
+#define SCREEN_HEIGHT            900
 
 #define MAX_SND_CHANNELS         8
 

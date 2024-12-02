@@ -14,10 +14,22 @@ void GameScene::start()
 {
 	Scene::start();
 	// Initialize any scene logic here
+
+	texture = loadTexture("gfx/background.png");
+
+	src.w = 900;
+	src.h = 900;
+
+	dest.w = SCREEN_WIDTH;
+	dest.h = SCREEN_HEIGHT;
+
+	SDL_QueryTexture(texture, NULL, NULL, &src.w, &src.h);
 }
 
 void GameScene::draw()
 {
+	SDL_RenderCopy(app.renderer, texture, &src, &dest);
+
 	Scene::draw();
 }
 
