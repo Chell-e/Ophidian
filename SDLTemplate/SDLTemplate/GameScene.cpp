@@ -3,14 +3,15 @@
 GameScene::GameScene()
 {
 	// Register and add game objects on constructor
+	snake = new Snake();
+	this->addGameObject(snake);
 }
 
 GameScene::~GameScene()
 {
-
+	delete snake;
 }
-
-void GameScene::start()
+ void GameScene::start()
 {
 	Scene::start();
 	// Initialize any scene logic here
@@ -24,11 +25,13 @@ void GameScene::start()
 	dest.h = SCREEN_HEIGHT;
 
 	SDL_QueryTexture(texture, NULL, NULL, &src.w, &src.h);
+
 }
 
 void GameScene::draw()
 {
 	SDL_RenderCopy(app.renderer, texture, &src, &dest);
+
 
 	Scene::draw();
 }
@@ -37,3 +40,4 @@ void GameScene::update()
 {
 	Scene::update();
 }
+
