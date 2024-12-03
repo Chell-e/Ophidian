@@ -1,55 +1,40 @@
+// Snake.h
 #pragma once
 #include "GameObject.h"
 #include "common.h"
 #include "draw.h"
-#include <list> 
+#include <vector>
+#include <deque>
 
-enum class Movement
+struct SnakeBody
 {
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT
-};
-
-struct Node
-{
-	SDL_Rect position;
-	Node* next;
+    int x;
+    int y;
 };
 
 class Snake : public GameObject
 {
 public:
-	Snake();
-	~Snake();
+    Snake();
+    ~Snake();
 
-	void start();
-	void update();
-	void draw();
+    void start();
+    void update();
+    void draw();
 
-	void changeDirection(Movement direction);
-	void extendSnake();
-	void moveSnake();
-
-	void addNode(int x, int y);
-	void removeNode();
 private:
-	SDL_Texture* headTexture;
-	SDL_Texture* bodyTexture;
-	Movement currentDirection;
+    SDL_Texture* texture;
 
-	int x;
-	int y;
-	int width;
-	int height;
+    int x;
+    int y;
+    int w;
+    int h;
 
-	int newHeadX;
-	int newHeadY;
+    int size;
+    int gridW;
+    int gridH;
 
-	int cellSize;
-	
-	Node* head;
-	Node* tail;
+    std::vector<SnakeBody> body;
 };
 
+// keep track of coordinates, when to make it a rectangle 

@@ -20,7 +20,5 @@ private:
 	SDL_Rect dest;
 	
 	Snake* snake;
-
-
 };
 

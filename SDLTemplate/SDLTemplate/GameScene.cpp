@@ -25,13 +25,11 @@ GameScene::~GameScene()
 	dest.h = SCREEN_HEIGHT;
 
 	SDL_QueryTexture(texture, NULL, NULL, &src.w, &src.h);
-
 }
 
 void GameScene::draw()
 {
 	SDL_RenderCopy(app.renderer, texture, &src, &dest);
-
 
 	Scene::draw();
 }
