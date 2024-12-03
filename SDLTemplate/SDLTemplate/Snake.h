@@ -34,7 +34,12 @@ private:
     int gridW;
     int gridH;
 
-    std::vector<SnakeBody> body;
+    float updateTime;
+    float currentUpdateTime;
+
+    //std::vector<SnakeBody> body;
+    std::deque<SnakeBody> body;
+    std::vector<SnakeBody> direction;
 };
 
 // keep track of coordinates, when to make it a rectangle 

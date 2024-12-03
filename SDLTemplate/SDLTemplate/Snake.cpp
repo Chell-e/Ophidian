@@ -2,9 +2,15 @@
 
 Snake::Snake()
 {
-	body.push_back({ gridW/ 2, gridH / 2 });
-	body.push_back({ gridW / 2 + 1, gridH / 2 });
-	body.push_back({ gridW / 2 - 2, gridH / 2 });
+	//body.push_back({ gridW/ 2, gridH / 2 });
+//body.push_back({ gridW / 2, gridH / 2 + 1});
+	//body.push_back({ gridW / 2, gridH / 2 + 2});
+
+	body.push_back({ gridW + 10, gridH + 10 }); // head
+	body.push_back({ gridW + 9, gridH + 10 }); // body
+	body.push_back({ gridW + 8, gridH + 10 }); // tail
+
+	// body = (35, 35), (34, 35), (33, 35) co-ords
 }
 
 Snake::~Snake()
@@ -18,13 +24,17 @@ void Snake::start()
 	texture = loadTexture("gfx/square.png");
 
 	// initialize values
-	x = 200;
-	y = 200;
 	w = 0;
 	h = 0;
-	size = 32;
-	gridW = 40;
-	gridH = 32;
+
+	size = 30;
+	gridW = 25;
+	gridH = 25;
+
+	updateTime = 10;
+	currentUpdateTime = 0;
+	
+	direction.push_back({ 1,0 });
 
 	// query texture
 	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
@@ -32,41 +42,49 @@ void Snake::start()
 
 void Snake::update()
 {
-	SnakeBody head = body[0];
 
-	if (app.keyboard[SDL_SCANCODE_W]) // UP
+	if (currentUpdateTime > 0)
+		currentUpdateTime--;
+
+	if (currentUpdateTime == 0)
 	{
-		head.y -= 1;
-	}
 
-	if (app.keyboard[SDL_SCANCODE_S]) // DOWN
-	{
-		head.y += 1;
-	}
+		if (app.keyboard[SDL_SCANCODE_W] && direction[0].y == 0) // up
+		{
+			direction[0] = { 0, -1 };
+		}
 
-	if (app.keyboard[SDL_SCANCODE_A]) // LEFT
-	{
-		head.x -= 1;
-	}
+		if (app.keyboard[SDL_SCANCODE_S] && direction[0].y == 0) // down
+		{
+			direction[0] = { 0, 1 };
+		}
 
-	if (app.keyboard[SDL_SCANCODE_D]) // RIGHT
-	{
-		head.x += 1;
-	}
+		if (app.keyboard[SDL_SCANCODE_A] && direction[0].x == 0) // ;eft
+		{
+			direction[0] = { -1, 0 };
+		}
 
-	for (int i = body.size() - 1; i > 0; --i)
-	{
-		body[i] = body[i - 1];  
-	}
+		if (app.keyboard[SDL_SCANCODE_D] && direction[0].x == 0) // right
+		{
+			direction[0] = { 1, 0 };
+		}
 
-	body[0] = head;
+		SnakeBody head = body.front();
+
+		head.x += direction[0].x;
+		head.y += direction[0].y;
+
+		body.pop_back(); // delete last element
+		body.push_front(head); // add an element at the front
+
+		currentUpdateTime = updateTime;
+	}
 }
 
 void Snake::draw()
 {
-	for (const auto& segment : body)
+	for (int i = 0; i < body.size(); i++)
 	{
-		blit(texture, segment.x * size, segment.y * size);
+		blit(texture, body[i].x * size, body[i].y * size);
 	}
-
 }
