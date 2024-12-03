@@ -2,10 +2,6 @@
 
 Snake::Snake()
 {
-	//body.push_back({ gridW/ 2, gridH / 2 });
-//body.push_back({ gridW / 2, gridH / 2 + 1});
-	//body.push_back({ gridW / 2, gridH / 2 + 2});
-
 	body.push_back({ gridW + 10, gridH + 10 }); // head
 	body.push_back({ gridW + 9, gridH + 10 }); // body
 	body.push_back({ gridW + 8, gridH + 10 }); // tail
@@ -49,22 +45,22 @@ void Snake::update()
 	if (currentUpdateTime == 0)
 	{
 
-		if (app.keyboard[SDL_SCANCODE_W] && direction[0].y == 0) // up
+		if (app.keyboard[SDL_SCANCODE_W] && direction[0].y != 1) // up
 		{
 			direction[0] = { 0, -1 };
 		}
 
-		if (app.keyboard[SDL_SCANCODE_S] && direction[0].y == 0) // down
+		if (app.keyboard[SDL_SCANCODE_S] && direction[0].y != -1) // down
 		{
 			direction[0] = { 0, 1 };
 		}
 
-		if (app.keyboard[SDL_SCANCODE_A] && direction[0].x == 0) // ;eft
+		if (app.keyboard[SDL_SCANCODE_A] && direction[0].x != 1) // ;eft
 		{
 			direction[0] = { -1, 0 };
 		}
 
-		if (app.keyboard[SDL_SCANCODE_D] && direction[0].x == 0) // right
+		if (app.keyboard[SDL_SCANCODE_D] && direction[0].x != -1) // right
 		{
 			direction[0] = { 1, 0 };
 		}
