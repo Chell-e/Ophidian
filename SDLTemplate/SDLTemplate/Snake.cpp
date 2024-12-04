@@ -21,7 +21,7 @@ Snake::~Snake()
 void Snake::start()
 {
 	// load texture
-	texture = loadTexture("gfx/square.png");
+	texture = loadTexture("gfx/head.png");
 
 	// initialize values
 	w = 0;
@@ -96,6 +96,8 @@ void Snake::update()
 
 void Snake::draw()
 {
+	//SDL_RenderCopyEx(app.renderer, texture, NULL, &dest, angle, NULL, SDL_FLIP_NONE);
+
 	for (int i = 0; i < body.size(); i++)
 	{
 		int x = body[i].x * size;

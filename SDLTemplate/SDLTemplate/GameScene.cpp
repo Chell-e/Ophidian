@@ -34,11 +34,12 @@ GameScene::~GameScene()
 	gridW = 25;
 	gridH = 25;
 
-	isGameRunning = true;
+	isGameRunning = false;
+	isGamePaused = true;
 
 	SDL_QueryTexture(texture, NULL, NULL, &src.w, &src.h);
-	initFonts();
-
+	
+	initFonts(); 
 }
 
 void GameScene::draw()
@@ -47,8 +48,10 @@ void GameScene::draw()
 
 	Scene::draw();
 	
-	drawText(SCREEN_WIDTH / 2, 600, 255, 255, 255, TEXT_CENTER, "Press SPACE to start!");
-	
+	if (isGamePaused)
+	{
+		drawText(SCREEN_WIDTH / 2, 600, 255, 255, 255, TEXT_CENTER, "PRESS SPACE TO START");
+	}	
 }
 
 void GameScene::update()
@@ -72,6 +75,7 @@ void GameScene::update()
 
 		if (app.keyboard[SDL_SCANCODE_SPACE])
 		{
+			isGamePaused = false;
 			snake->setGameRunning(false);
 		}
 	}
@@ -148,6 +152,6 @@ void GameScene::gameOver(Snake* snake)
 void GameScene::restart()
 {
 	isGameRunning = true;
+	isGamePaused = true;
 	spawnFood();
-
 }

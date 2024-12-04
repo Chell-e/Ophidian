@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "text.h"
 #include "draw.h"
+#include "common.h"
 #include "Snake.h"
 #include "Food.h"
 #include <vector>
@@ -31,6 +32,7 @@ private:
 	int gridH;
 
 	bool isGameRunning;
+	bool isGamePaused;
 
 	void spawnFood();
 	void eatFood(Snake* snake, Food* food);
