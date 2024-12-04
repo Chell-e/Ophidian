@@ -27,6 +27,9 @@ public:
     void reset();
 
     bool addSegment;
+    bool isCollidingWithTail();
+
+    void setGameRunning(bool running);
 private:
     SDL_Texture* texture;
     SnakeBody initialPos;
@@ -40,6 +43,8 @@ private:
     int size;
     int gridW;
     int gridH;
+
+    bool isGameRunning;
 
     float updateTime;
     float currentUpdateTime;

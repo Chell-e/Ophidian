@@ -32,6 +32,7 @@ void Snake::start()
 	gridH = 25;
 
 	addSegment = false;
+	isGameRunning = true;
 
 	updateTime = 10;
 	currentUpdateTime = 0;
@@ -42,6 +43,11 @@ void Snake::start()
 
 void Snake::update()
 {
+	if (isGameRunning)
+	{
+		return;
+	}
+
 	if (currentUpdateTime > 0)
 		currentUpdateTime--;
 
@@ -85,7 +91,6 @@ void Snake::update()
 		}
 
 		currentUpdateTime = updateTime;
-
 	}
 }
 
@@ -123,4 +128,25 @@ void Snake::reset()
 
 	direction = initialDirection;
 	addSegment = false;
+
+	isGameRunning = true; // added this
 }
+
+bool Snake::isCollidingWithTail()
+{
+	for (int i = 1; i < body.size(); i++)
+	{
+		if (body[0].x == body[i].x
+			&& body[0].y == body[i].y)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+void Snake::setGameRunning(bool running)
+{
+	isGameRunning = running;
+}
+

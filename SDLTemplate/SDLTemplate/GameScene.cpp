@@ -34,9 +34,11 @@ GameScene::~GameScene()
 	gridW = 25;
 	gridH = 25;
 
-	running = true;
+	isGameRunning = true;
 
 	SDL_QueryTexture(texture, NULL, NULL, &src.w, &src.h);
+	initFonts();
+
 }
 
 void GameScene::draw()
@@ -44,13 +46,16 @@ void GameScene::draw()
 	SDL_RenderCopy(app.renderer, texture, &src, &dest);
 
 	Scene::draw();
+	
+	drawText(SCREEN_WIDTH / 2, 600, 255, 255, 255, TEXT_CENTER, "Press SPACE to start!");
+	
 }
 
 void GameScene::update()
 {
 	Scene::update();
 
-	if (running)
+	if (isGameRunning)
 	{
 		if (spawnedFoods.empty())
 		{
@@ -63,10 +68,15 @@ void GameScene::update()
 		}
 
 		checkCollisionWithEdges(snake);
-	}
-	running = true;
-}
+		checkCollisionWithTail(snake);
 
+		if (app.keyboard[SDL_SCANCODE_SPACE])
+		{
+			snake->setGameRunning(false);
+		}
+	}
+	isGameRunning = true;
+}
 
 void GameScene::spawnFood()
 {
@@ -107,11 +117,16 @@ void GameScene::eatFood(Snake* snake, Food* food)
 
 void GameScene::checkCollisionWithEdges(Snake* snake)
 {
-	if (snake->getPositionX() == gridW || snake->getPositionX() == -1)
+	if (snake->getPositionX() == gridW || snake->getPositionX() == -1 ||
+		snake->getPositionY() == gridH || snake->getPositionY() == -1)
 	{
 		gameOver(snake);
 	}
-	if (snake->getPositionY() == gridH || snake->getPositionY() == -1)
+}
+
+void GameScene::checkCollisionWithTail(Snake* snake)
+{
+	if (snake->isCollidingWithTail())
 	{
 		gameOver(snake);
 	}
@@ -127,6 +142,12 @@ void GameScene::gameOver(Snake* snake)
 	}
 	spawnedFoods.clear();
 
+	restart();
+}
+
+void GameScene::restart()
+{
+	isGameRunning = true;
 	spawnFood();
-	running = false;
+
 }

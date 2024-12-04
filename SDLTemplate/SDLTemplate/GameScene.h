@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "text.h"
+#include "draw.h"
 #include "Snake.h"
 #include "Food.h"
 #include <vector>
@@ -29,12 +30,14 @@ private:
 	int gridW;
 	int gridH;
 
-	bool running;
+	bool isGameRunning;
 
 	void spawnFood();
 	void eatFood(Snake* snake, Food* food);
 	
 	void checkCollisionWithEdges(Snake* snake);
+	void checkCollisionWithTail(Snake* snake);
 	void gameOver(Snake* snake);
+	void restart();
 };
 
