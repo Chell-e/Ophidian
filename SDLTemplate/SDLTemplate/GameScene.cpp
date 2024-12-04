@@ -11,7 +11,7 @@ GameScene::~GameScene()
 {
 	delete snake;
 
-	for (int i = 0; spawnedFoods.size(); i++)
+	for (int i = 0; i < spawnedFoods.size(); i++)
 	{
 		delete spawnedFoods[i];
 	}
@@ -34,6 +34,8 @@ GameScene::~GameScene()
 	gridW = 25;
 	gridH = 25;
 
+	running = true;
+
 	SDL_QueryTexture(texture, NULL, NULL, &src.w, &src.h);
 }
 
@@ -48,14 +50,19 @@ void GameScene::update()
 {
 	Scene::update();
 
-	if (spawnedFoods.empty())
+	if (running)
 	{
-		spawnFood();
-	}
+		if (spawnedFoods.empty())
+		{
+			spawnFood();
+		}
 
-	for (int i = 0; i < spawnedFoods.size(); i++)
-	{
-		eatFood(snake, food);
+		for (int i = 0; i < spawnedFoods.size(); i++)
+		{
+			eatFood(snake, food);
+		}
+
+		checkCollisionWithEdges(snake);
 	}
 }
 
@@ -95,4 +102,30 @@ void GameScene::eatFood(Snake* snake, Food* food)
 			delete food;
 		}
 	}
+}
+
+void GameScene::checkCollisionWithEdges(Snake* snake)
+{
+	if (snake->getPositionX() == gridW || snake->getPositionX() == -1)
+	{
+		gameOver(snake);
+	}
+	if (snake->getPositionY() == gridH || snake->getPositionY() == -1)
+	{
+		gameOver(snake);
+	}
+}
+
+void GameScene::gameOver(Snake* snake)
+{
+	snake->reset();
+
+	for (int i = 0; i < spawnedFoods.size(); i++)
+	{	
+		delete spawnedFoods[i];
+	}
+	spawnedFoods.clear();
+
+	spawnFood();
+	running = true;
 }

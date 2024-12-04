@@ -15,7 +15,6 @@ public:
 	void start();
 	void draw();
 	void update();
-
 private:
 	SDL_Texture* texture;
 	SDL_Rect src;
@@ -30,7 +29,12 @@ private:
 	int gridW;
 	int gridH;
 
+	bool running;
+
 	void spawnFood();
 	void eatFood(Snake* snake, Food* food);
+	
+	void checkCollisionWithEdges(Snake* snake);
+	void gameOver(Snake* snake);
 };
 

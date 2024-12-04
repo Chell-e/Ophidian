@@ -2,10 +2,14 @@
 
 Snake::Snake()
 {
-	body.push_back({ gridW + 10, gridH + 10 }); // head
+	initialPos = { gridW + 10, gridH + 10 };
+	initialDirection.push_back({ 1,0 });
+
+	body.push_back(initialPos); // head
 	body.push_back({ gridW + 9, gridH + 10 }); // body
 	body.push_back({ gridW + 8, gridH + 10 }); // tail
 
+	direction = initialDirection;
 	// body = (35, 35), (34, 35), (33, 35) co-ords
 }
 
@@ -31,8 +35,6 @@ void Snake::start()
 
 	updateTime = 10;
 	currentUpdateTime = 0;
-	
-	direction.push_back({ 1,0 });
 
 	// query texture
 	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
@@ -109,4 +111,16 @@ int Snake::getPositionY()
 	SnakeBody head = body.front();
 
 	return head.y;
+}
+
+void Snake::reset()
+{
+	body.clear();
+
+	body.push_back({initialPos}); // head
+	body.push_back({ gridW + 9, gridH + 10 }); // body
+	body.push_back({ gridW + 8, gridH + 10 }); // tail
+
+	direction = initialDirection;
+	addSegment = false;
 }

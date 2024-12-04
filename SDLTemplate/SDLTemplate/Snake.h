@@ -24,11 +24,13 @@ public:
 
     int getPositionX();
     int getPositionY();
+    void reset();
 
     bool addSegment;
-
 private:
     SDL_Texture* texture;
+    SnakeBody initialPos;
+    std::vector<SnakeBody> initialDirection;
 
     int x;
     int y;
@@ -46,4 +48,4 @@ private:
     std::vector<SnakeBody> direction;
 };
 
-// keep track of coordinates, when to make it a rectangle 
+// could also do the tracking of tailmost, update, then add 
