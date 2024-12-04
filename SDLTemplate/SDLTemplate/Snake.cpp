@@ -38,7 +38,6 @@ void Snake::start()
 
 void Snake::update()
 {
-
 	if (currentUpdateTime > 0)
 		currentUpdateTime--;
 
@@ -81,6 +80,22 @@ void Snake::draw()
 {
 	for (int i = 0; i < body.size(); i++)
 	{
+		int x = body[i].x * size;
+		int y = body[i].y * size;
 		blit(texture, body[i].x * size, body[i].y * size);
 	}
+}
+
+int Snake::getPositionX()
+{ 
+	SnakeBody head = body.front();
+
+	return head.x;
+}
+
+int Snake::getPositionY()
+{
+	SnakeBody head = body.front();
+
+	return head.y;
 }

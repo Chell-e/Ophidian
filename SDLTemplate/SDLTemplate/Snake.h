@@ -22,6 +22,8 @@ public:
     void update();
     void draw();
 
+    int getPositionX();
+    int getPositionY();
 private:
     SDL_Texture* texture;
 
@@ -37,7 +39,6 @@ private:
     float updateTime;
     float currentUpdateTime;
 
-    //std::vector<SnakeBody> body;
     std::deque<SnakeBody> body;
     std::vector<SnakeBody> direction;
 };

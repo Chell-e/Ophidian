@@ -4,6 +4,7 @@
 #include "text.h"
 #include "Snake.h"
 #include "Food.h"
+#include <vector>
 
 class GameScene : public Scene
 {
@@ -23,11 +24,13 @@ private:
 	Snake* snake;
 	Food* food;
 
+	std::vector<Food*> spawnedFoods;
+
 	int size;
 	int gridW;
 	int gridH;
-	bool hasFoodSpawned;
 
 	void spawnFood();
+	void eatFood(Snake* snake, Food* food);
 };
 

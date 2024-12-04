@@ -11,8 +11,6 @@ Food::~Food()
 
 void Food::start()
 {
-	//x = gridW + 3;
-	//y = gridH + 3;
 	w = 0;
 	h = 0;
 
@@ -42,6 +40,7 @@ void Food::setPosition(int posX, int posY)
 
 int Food::getPositionX()
 {
+	
 	return x;
 }
 
@@ -50,12 +49,3 @@ int Food::getPositionY()
 	return y;
 }
 
-int Food::getWidth()
-{
-	return w;
-}
-
-int Food::getHeight()
-{
-	return h;
-}

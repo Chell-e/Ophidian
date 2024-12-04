@@ -5,15 +5,17 @@ GameScene::GameScene()
 	// Register and add game objects on constructor
 	snake = new Snake();
 	this->addGameObject(snake);
-
-	food = NULL;
-	hasFoodSpawned = false;
 }
 
 GameScene::~GameScene()
 {
 	delete snake;
-	delete food;
+
+	for (int i = 0; spawnedFoods.size(); i++)
+	{
+		delete spawnedFoods[i];
+	}
+	spawnedFoods.clear();
 }
  void GameScene::start()
 {
@@ -46,20 +48,49 @@ void GameScene::update()
 {
 	Scene::update();
 
-
-	spawnFood();
-}
-
-void GameScene::spawnFood()
-{
-	if (!hasFoodSpawned)
+	if (spawnedFoods.empty())
 	{
-		food = new Food();
-		this->addGameObject(food);
+		spawnFood();
+	}
 
-		food->setPosition(rand() % gridW, rand() % gridH);
-
-		hasFoodSpawned = true;
+	for (int i = 0; i < spawnedFoods.size(); i++)
+	{
+		eatFood(snake, food);
 	}
 }
 
+
+void GameScene::spawnFood()
+{
+	int x = rand() % gridW;
+	int y = rand() % gridH;
+
+	food = new Food();
+	this->addGameObject(food);
+
+	food->setPosition(x, y);
+	spawnedFoods.push_back(food);
+}
+
+void GameScene::eatFood(Snake* snake, Food* food)
+{
+	if (snake->getPositionX() == food->getPositionX() && snake->getPositionY() == food->getPositionY())
+	{	
+		int index = -1;
+
+		for (int i = 0; i < spawnedFoods.size(); i++)
+		{
+			if (food == spawnedFoods[i])
+			{
+				index = i;
+				break;
+			}
+		}
+
+		if (index != -1)
+		{
+			spawnedFoods.erase(spawnedFoods.begin() + index);
+			delete food;
+		}
+	}
+}
