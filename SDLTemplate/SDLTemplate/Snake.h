@@ -24,6 +24,9 @@ public:
 
     int getPositionX();
     int getPositionY();
+
+    bool addSegment;
+
 private:
     SDL_Texture* texture;
 

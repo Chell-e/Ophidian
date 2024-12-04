@@ -27,6 +27,8 @@ void Snake::start()
 	gridW = 25;
 	gridH = 25;
 
+	addSegment = false;
+
 	updateTime = 10;
 	currentUpdateTime = 0;
 	
@@ -69,10 +71,19 @@ void Snake::update()
 		head.x += direction[0].x;
 		head.y += direction[0].y;
 
-		body.pop_back(); // delete last element
-		body.push_front(head); // add an element at the front
+		if (addSegment == true)
+		{
+			addSegment = false;
+			body.push_front(head);
+		} 
+		else
+		{
+			body.pop_back(); // delete last element
+			body.push_front(head); // add an element at the front
+		}
 
 		currentUpdateTime = updateTime;
+
 	}
 }
 

@@ -76,6 +76,8 @@ void GameScene::eatFood(Snake* snake, Food* food)
 {
 	if (snake->getPositionX() == food->getPositionX() && snake->getPositionY() == food->getPositionY())
 	{	
+		snake->addSegment = true;
+
 		int index = -1;
 
 		for (int i = 0; i < spawnedFoods.size(); i++)
