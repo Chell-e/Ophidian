@@ -24,6 +24,7 @@ void Snake::start()
 	// load texture
 	headTexture = loadTexture("gfx/head.png");
 	bodyTexture = loadTexture("gfx/body.png");
+	tailTexture = loadTexture("gfx/tail.png");
 
 	// initialize values
 	w = 0;
@@ -42,7 +43,7 @@ void Snake::start()
 	// query texture
 	SDL_QueryTexture(headTexture, NULL, NULL, &w, &h);
 	SDL_QueryTexture(bodyTexture, NULL, NULL, &w, &h);
-
+	SDL_QueryTexture(tailTexture, NULL, NULL, &w, &h);
 }
 
 void Snake::update()
@@ -79,6 +80,7 @@ void Snake::update()
 		}
 
 		SnakeBody head = body.front();
+		SnakeBody tail = body.back();
 
 		head.x += direction[0].x;
 		head.y += direction[0].y;
@@ -119,10 +121,15 @@ void Snake::draw()
 			SDL_Rect destRect = { x, y, size, size };
 			SDL_RenderCopyEx(app.renderer, headTexture, NULL, &destRect, angle, NULL, SDL_FLIP_NONE);	
 		}
-		else
+		else if (i == body.size() - 1)
 		{
 			SDL_Rect destRect = { x, y, size, size };
 			SDL_RenderCopyEx(app.renderer, bodyTexture, NULL, &destRect, angle, NULL, SDL_FLIP_NONE);
+		}
+		else
+		{
+			SDL_Rect destRect = { x, y, size, size };
+			SDL_RenderCopyEx(app.renderer, tailTexture, NULL, &destRect, angle, NULL, SDL_FLIP_NONE);
 		}
 
 		//blit(texture, body[i].x * size, body[i].y * size);

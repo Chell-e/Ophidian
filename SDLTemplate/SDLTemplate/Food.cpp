@@ -18,7 +18,7 @@ void Food::start()
 	gridW = 25;
 	gridH = 25;
 
-	texture = loadTexture("gfx/food.png");
+	texture = loadTexture("gfx/apple.png");
 
 	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
 }

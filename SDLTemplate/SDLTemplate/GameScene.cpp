@@ -51,8 +51,8 @@ void GameScene::draw()
 
 	Scene::draw();
 	
-	drawText(100, 10, 600, 255, 255, TEXT_CENTER, "SCORE: %03d", score);
-	drawText(600, 10, 700, 255, 255, TEXT_CENTER, "HIGH SCORE: %03d", highScore);
+	drawText(100, 10, 255, 255, 255, TEXT_CENTER, "SCORE: %03d", score);
+	drawText(600, 10, 255, 255, 255, TEXT_CENTER, "HIGH SCORE: %03d", highScore);
 	if (isGamePaused)
 	{
 		drawText(SCREEN_WIDTH / 2, 600, 255, 255, 255, TEXT_CENTER, "PRESS SPACE TO START");

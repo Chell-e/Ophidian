@@ -33,6 +33,8 @@ public:
 private:
     SDL_Texture* headTexture;
     SDL_Texture* bodyTexture;
+    SDL_Texture* tailTexture;
+
     SnakeBody initialPos;
     std::vector<SnakeBody> initialDirection;
 
