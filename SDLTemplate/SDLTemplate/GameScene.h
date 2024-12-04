@@ -19,7 +19,7 @@ private:
 	SDL_Texture* texture;
 	SDL_Rect src;
 	SDL_Rect dest;
-
+	
 	Snake* snake;
 	Food* food;
 

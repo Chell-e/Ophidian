@@ -77,7 +77,7 @@ void Snake::update()
 		{
 			addSegment = false;
 			body.push_front(head);
-		} 
+		}
 		else
 		{
 			body.pop_back(); // delete last element
@@ -100,7 +100,7 @@ void Snake::draw()
 }
 
 int Snake::getPositionX()
-{ 
+{
 	SnakeBody head = body.front();
 
 	return head.x;
@@ -117,7 +117,7 @@ void Snake::reset()
 {
 	body.clear();
 
-	body.push_back({initialPos}); // head
+	body.push_back({ initialPos }); // head
 	body.push_back({ gridW + 9, gridH + 10 }); // body
 	body.push_back({ gridW + 8, gridH + 10 }); // tail
 

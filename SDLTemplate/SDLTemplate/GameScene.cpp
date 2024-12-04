@@ -64,6 +64,7 @@ void GameScene::update()
 
 		checkCollisionWithEdges(snake);
 	}
+	running = true;
 }
 
 
@@ -127,5 +128,5 @@ void GameScene::gameOver(Snake* snake)
 	spawnedFoods.clear();
 
 	spawnFood();
-	running = true;
+	running = false;
 }
