@@ -80,7 +80,6 @@ void Snake::update()
 		}
 
 		SnakeBody head = body.front();
-		SnakeBody tail = body.back();
 
 		head.x += direction[0].x;
 		head.y += direction[0].y;
@@ -124,12 +123,12 @@ void Snake::draw()
 		else if (i == body.size() - 1)
 		{
 			SDL_Rect destRect = { x, y, size, size };
-			SDL_RenderCopyEx(app.renderer, bodyTexture, NULL, &destRect, angle, NULL, SDL_FLIP_NONE);
+			SDL_RenderCopyEx(app.renderer, tailTexture, NULL, &destRect, angle, NULL, SDL_FLIP_NONE);
 		}
 		else
 		{
 			SDL_Rect destRect = { x, y, size, size };
-			SDL_RenderCopyEx(app.renderer, tailTexture, NULL, &destRect, angle, NULL, SDL_FLIP_NONE);
+			SDL_RenderCopyEx(app.renderer, bodyTexture, NULL, &destRect, angle, NULL, SDL_FLIP_NONE);
 		}
 
 		//blit(texture, body[i].x * size, body[i].y * size);
