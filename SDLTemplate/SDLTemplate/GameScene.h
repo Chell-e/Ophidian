@@ -31,6 +31,9 @@ private:
 	int gridW;
 	int gridH;
 
+	int score;
+	int highScore;
+
 	bool isGameRunning;
 	bool isGamePaused;
 

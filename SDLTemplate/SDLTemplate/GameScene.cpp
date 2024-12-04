@@ -2,6 +2,9 @@
 
 GameScene::GameScene()
 {
+	score = 0;
+	highScore = 0;
+
 	// Register and add game objects on constructor
 	snake = new Snake();
 	this->addGameObject(snake);
@@ -48,6 +51,8 @@ void GameScene::draw()
 
 	Scene::draw();
 	
+	drawText(100, 10, 600, 255, 255, TEXT_CENTER, "SCORE: %03d", score);
+	drawText(600, 10, 700, 255, 255, TEXT_CENTER, "HIGH SCORE: %03d", highScore);
 	if (isGamePaused)
 	{
 		drawText(SCREEN_WIDTH / 2, 600, 255, 255, 255, TEXT_CENTER, "PRESS SPACE TO START");
@@ -80,6 +85,7 @@ void GameScene::update()
 		}
 	}
 	isGameRunning = true;
+
 }
 
 void GameScene::spawnFood()
@@ -99,6 +105,7 @@ void GameScene::eatFood(Snake* snake, Food* food)
 	if (snake->getPositionX() == food->getPositionX() && snake->getPositionY() == food->getPositionY())
 	{	
 		snake->addSegment = true;
+		score += 10;
 
 		int index = -1;
 
@@ -151,7 +158,14 @@ void GameScene::gameOver(Snake* snake)
 
 void GameScene::restart()
 {
+	if (score > highScore)
+	{
+		highScore = score;
+	}
+	score = 0;
+
 	isGameRunning = true;
 	isGamePaused = true;
+
 	spawnFood();
 }

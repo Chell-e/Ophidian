@@ -10,6 +10,7 @@ Snake::Snake()
 	body.push_back({ gridW + 8, gridH + 10 }); // tail
 
 	direction = initialDirection;
+	angle = 0.0;
 	// body = (35, 35), (34, 35), (33, 35) co-ords
 }
 
@@ -21,7 +22,8 @@ Snake::~Snake()
 void Snake::start()
 {
 	// load texture
-	texture = loadTexture("gfx/head.png");
+	headTexture = loadTexture("gfx/head.png");
+	bodyTexture = loadTexture("gfx/body.png");
 
 	// initialize values
 	w = 0;
@@ -38,7 +40,9 @@ void Snake::start()
 	currentUpdateTime = 0;
 
 	// query texture
-	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+	SDL_QueryTexture(headTexture, NULL, NULL, &w, &h);
+	SDL_QueryTexture(bodyTexture, NULL, NULL, &w, &h);
+
 }
 
 void Snake::update()
@@ -96,13 +100,32 @@ void Snake::update()
 
 void Snake::draw()
 {
-	//SDL_RenderCopyEx(app.renderer, texture, NULL, &dest, angle, NULL, SDL_FLIP_NONE);
-
 	for (int i = 0; i < body.size(); i++)
 	{
 		int x = body[i].x * size;
 		int y = body[i].y * size;
-		blit(texture, body[i].x * size, body[i].y * size);
+
+		if (direction[0].x == 1) // right
+			angle = 0.0;
+		else if (direction[0].x == -1) // left
+			angle = 180.0;
+		else if (direction[0].y == 1) // down
+			angle = 90.0;
+		else if (direction[0].y == -1) // up
+			angle = 270.0;
+
+		if (i == 0)
+		{
+			SDL_Rect destRect = { x, y, size, size };
+			SDL_RenderCopyEx(app.renderer, headTexture, NULL, &destRect, angle, NULL, SDL_FLIP_NONE);	
+		}
+		else
+		{
+			SDL_Rect destRect = { x, y, size, size };
+			SDL_RenderCopyEx(app.renderer, bodyTexture, NULL, &destRect, angle, NULL, SDL_FLIP_NONE);
+		}
+
+		//blit(texture, body[i].x * size, body[i].y * size);
 	}
 }
 

@@ -31,7 +31,8 @@ public:
 
     void setGameRunning(bool running);
 private:
-    SDL_Texture* texture;
+    SDL_Texture* headTexture;
+    SDL_Texture* bodyTexture;
     SnakeBody initialPos;
     std::vector<SnakeBody> initialDirection;
 
@@ -39,6 +40,7 @@ private:
     int y;
     int w;
     int h;
+    double angle;
 
     int size;
     int gridW;
